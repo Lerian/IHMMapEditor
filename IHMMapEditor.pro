@@ -8,13 +8,24 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+DEPENDPATH += forms\
+            display
+INCLUDEPATH += forms\
+            display
+
 TARGET = IHMMapEditor
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        display/mainwindow.cpp \
+    display/homewindow.cpp \
+    display/editorwindow.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += display/mainwindow.h \
+    display/homewindow.h \
+    display/editorwindow.h
 
-FORMS    += mainwindow.ui
+FORMS    += forms/mainwindow.ui \
+    forms/homewindow.ui \
+    forms/editorwindow.ui
