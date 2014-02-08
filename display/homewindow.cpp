@@ -12,3 +12,13 @@ HomeWindow::~HomeWindow()
 {
     delete ui;
 }
+
+void HomeWindow::on_quitButton_clicked()
+{
+    emit quitButtonClicked();
+}
+
+void HomeWindow::on_newMapButton_clicked()
+{
+    emit newMapButtonClicked();
+}

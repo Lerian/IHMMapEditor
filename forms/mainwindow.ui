@@ -6,20 +6,29 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>648</width>
+    <height>567</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Editeur de cartes</string>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="HomeWindow" name="homeWindow" native="true"/>
+    </item>
+    <item row="0" column="1">
+     <widget class="EditorWindow" name="editorWindow" native="true"/>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>648</width>
      <height>25</height>
     </rect>
    </property>
@@ -35,6 +44,60 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>HomeWindow</class>
+   <extends>QWidget</extends>
+   <header location="global">homewindow.h</header>
+   <container>1</container>
+   <slots>
+    <signal>quitButtonClicked()</signal>
+    <signal>newMapButtonClicked()</signal>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>EditorWindow</class>
+   <extends>QWidget</extends>
+   <header>editorwindow.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>homeWindow</sender>
+   <signal>quitButtonClicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>164</x>
+     <y>291</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>323</x>
+     <y>283</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>homeWindow</sender>
+   <signal>newMapButtonClicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>displayEditor()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>164</x>
+     <y>291</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>323</x>
+     <y>283</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>displayEditor()</slot>
+ </slots>
 </ui>

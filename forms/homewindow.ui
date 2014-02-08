@@ -17,23 +17,23 @@
    <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="newMapButton">
        <property name="text">
-        <string>PushButton</string>
+        <string>Nouvelle carte</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="loadMapButton">
        <property name="text">
-        <string>PushButton</string>
+        <string>Charger une carte existante</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="quitButton">
        <property name="text">
-        <string>PushButton</string>
+        <string>Quitter</string>
        </property>
       </widget>
      </item>
@@ -43,4 +43,11 @@
  </widget>
  <resources/>
  <connections/>
+ <slots>
+  <signal>quitButtonClicked()</signal>
+  <signal>loadMapButtonClicked()</signal>
+  <signal>newMapButtonClicked()</signal>
+  <slot>on_quitButton_clicked()</slot>
+  <slot>on_newMapButton_clicked()</slot>
+ </slots>
 </ui>
