@@ -20,10 +20,13 @@ private slots:
 
     void on_newMapButton_clicked();
 
+    void on_loadMapButton_clicked();
+
 signals:
     void quitButtonClicked();
     void newMapButtonClicked();
     void loadMapButtonClicked();
+    void loadMap(QString mapFileName);
 
 private:
     Ui::HomeWindow *ui;
