@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resource/porte.png</file>
+        <file>resource/ascenseur.png</file>
+        <file>resource/escalier.png</file>
+        <file>resource/issueSecours.png</file>
+        <file>resource/qrcode.png</file>
+        <file>resource/wc.png</file>
+        <file>resource/wcH.png</file>
+    </qresource>
+</RCC>

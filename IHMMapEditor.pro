@@ -20,12 +20,17 @@ TEMPLATE = app
 SOURCES += main.cpp\
         display/mainwindow.cpp \
     display/homewindow.cpp \
-    display/editorwindow.cpp
+    display/editorwindow.cpp \
+    display/graphitem.cpp
 
 HEADERS  += display/mainwindow.h \
     display/homewindow.h \
-    display/editorwindow.h
+    display/editorwindow.h \
+    display/graphitem.h
 
 FORMS    += forms/mainwindow.ui \
     forms/homewindow.ui \
     forms/editorwindow.ui
+
+RESOURCES += \
+    iconsResources.qrc
