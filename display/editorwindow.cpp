@@ -2,6 +2,7 @@
 #include "ui_editorwindow.h"
 #include "graphitem.h"
 #include <QFileDialog>
+#include "mapgraphicsview.h"
 
 EditorWindow::EditorWindow(QWidget *parent) :
     QWidget(parent),
@@ -48,7 +49,7 @@ void EditorWindow::on_newElementButton_clicked()
     ui->elementsComboBox->addItem(fileNameParts.back());
     ui->elementsComboBox->setCurrentIndex(ui->elementsComboBox->count()-1);
 
-    QGraphicsView* elementView = new QGraphicsView();
+    MapGraphicsView* elementView = new MapGraphicsView();
     QPixmap pixmap(mapFileName);
     QBrush brush(pixmap);
     QPalette palette;

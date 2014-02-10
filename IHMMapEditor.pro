@@ -21,12 +21,14 @@ SOURCES += main.cpp\
         display/mainwindow.cpp \
     display/homewindow.cpp \
     display/editorwindow.cpp \
-    display/graphitem.cpp
+    display/graphitem.cpp \
+    display/mapgraphicsview.cpp
 
 HEADERS  += display/mainwindow.h \
     display/homewindow.h \
     display/editorwindow.h \
-    display/graphitem.h
+    display/graphitem.h \
+    display/mapgraphicsview.h
 
 FORMS    += forms/mainwindow.ui \
     forms/homewindow.ui \

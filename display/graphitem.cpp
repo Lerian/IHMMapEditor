@@ -48,7 +48,7 @@ void GraphItem::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
 }
 
-void GraphItem::mousePressEvent(QGraphicsSceneMouseEvent *)
+void GraphItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     setCursor(Qt::ClosedHandCursor);
 }
@@ -60,6 +60,21 @@ void GraphItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         return;
     }
 
+    QPoint hotSpot = event->pos().toPoint();
+
+    QByteArray itemData;
+    QDataStream dataStream(&itemData, QIODevice::WriteOnly);
+    dataStream << QPoint(hotSpot);
+
+    QMimeData *mimeData = new QMimeData;
+    mimeData->setData("application/IHMMapEditor", itemData);
+
+    QImage image(imageFile());
+    QDrag *drag = new QDrag(event->widget());
+    drag->setMimeData(mimeData);
+    drag->setPixmap(QPixmap::fromImage(image).scaled(50, 50));
+    drag->setHotSpot(hotSpot);
+    /*
     QDrag *drag = new QDrag(event->widget());
     QMimeData *mime = new QMimeData;
     drag->setMimeData(mime);
@@ -67,9 +82,9 @@ void GraphItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     QImage image(imageFile());
     mime->setImageData(image);
 
-    drag->setPixmap(QPixmap::fromImage(image).scaled(30, 40));
+    drag->setPixmap(QPixmap::fromImage(image).scaled(50, 50));
     drag->setHotSpot(QPoint(15, 30));
-
+*/
     drag->exec();
     setCursor(Qt::OpenHandCursor);
 }
