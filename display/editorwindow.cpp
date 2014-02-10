@@ -57,5 +57,6 @@ void EditorWindow::on_newElementButton_clicked()
 
     QGraphicsScene* elementScene = new QGraphicsScene(0,0,pixmap.width(),pixmap.height());
     elementView->setScene(elementScene);
+
     ui->mapAreaStack->addWidget(elementView);
 }
