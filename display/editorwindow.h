@@ -18,6 +18,12 @@ public:
 private slots:
     void on_newElementButton_clicked();
 
+    void on_zoomInButton_clicked();
+
+    void on_zoomOutButton_clicked();
+
+    void on_zoomIdeal_clicked();
+
 private:
     Ui::EditorWindow *ui;
 };

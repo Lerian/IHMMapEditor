@@ -56,6 +56,37 @@ void EditorWindow::on_newElementButton_clicked()
 
     ui->mapAreaStack->addWidget(elementView);
 
+    //elementView->fitInView(background);
+    elementScene->setSceneRect(background->boundingRect());
+
     ui->elementsComboBox->addItem(fileNameParts.back());
     ui->elementsComboBox->setCurrentIndex(ui->elementsComboBox->count()-1);
+}
+
+void EditorWindow::on_zoomInButton_clicked()
+{
+    MapGraphicsView* currentView = static_cast<MapGraphicsView*>(ui->mapAreaStack->currentWidget());
+
+    currentView->scale(1.25,1.25);
+}
+
+void EditorWindow::on_zoomOutButton_clicked()
+{
+    MapGraphicsView* currentView = static_cast<MapGraphicsView*>(ui->mapAreaStack->currentWidget());
+
+    currentView->scale(1/1.25,1/1.25);
+}
+
+void EditorWindow::on_zoomIdeal_clicked()
+{
+    MapGraphicsView* currentView = static_cast<MapGraphicsView*>(ui->mapAreaStack->currentWidget());
+
+    /*qreal sceneWidth = currentView->scene()->width();
+    qreal sceneHeight = currentView->scene()->height();
+
+    currentView->resize(sceneWidth,sceneHeight);*/
+
+    //currentView->adjustSize();
+
+    //currentView->fitInView(currentView->scene());
 }
