@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,13 +22,15 @@ SOURCES += main.cpp\
     display/homewindow.cpp \
     display/editorwindow.cpp \
     display/graphitem.cpp \
-    display/mapgraphicsview.cpp
+    display/mapgraphicsview.cpp \
+    xml/parser.cpp
 
 HEADERS  += display/mainwindow.h \
     display/homewindow.h \
     display/editorwindow.h \
     display/graphitem.h \
-    display/mapgraphicsview.h
+    display/mapgraphicsview.h \
+    xml/parser.h
 
 FORMS    += forms/mainwindow.ui \
     forms/homewindow.ui \

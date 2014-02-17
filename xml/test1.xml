@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+	<!-- Liaisons -->
+    <!--<key id="ref" for="edge" attr.name="ref" attr.type="float"/>-->
+	<!-- Eléments -->
+    <key id="name" for="node" attr.name="name" attr.type="string"/>
+    <key id="ref" for="node" attr.name="ref" attr.type="string"/>
+    <key id="type" for="node" attr.name="type" attr.type="string"/> <!-- Type : porte, wc, wcHand, qrCode, escalier, ascenseur, sortieSecours, vide -->
+    <key id="altitude" for="node" attr.name="altitude" attr.type="float"/>
+    <key id="latitude" for="node" attr.name="latitude" attr.type="float"/>
+    <key id="longitude" for="node" attr.name="longitude" attr.type="float"/>
+
+	<!-- Construction -->
+    <graph id="Bat15" edgedefault="directed">
+        <node id="1">
+            <data key="name">Master_Alma</data>
+            <data key="ref">042</data>
+			<data key="type">porte</data>
+			<data key="altitude">32.5</data>
+			<data key="latitude">75.2</data>
+			<data key="longitude">46.2</data>
+        </node>
+        <node id="2">
+            <data key="name">wc Hommes</data>
+            <data key="ref">065</data>
+			<data key="type">wc</data>
+			<data key="altitude">32.5</data>
+			<data key="latitude">75.2</data>
+			<data key="longitude">46.2</data>
+        </node>
+        <node id="3">
+            <data key="name">Ascenseur</data>
+            <data key="ref">012</data>
+			<data key="type">ascenseur</data>
+			<data key="altitude">32.5</data>
+			<data key="latitude">75.2</data>
+			<data key="longitude">46.2</data>
+        </node>
+        <node id="4">
+            <data key="name">Couloir</data>
+            <data key="ref">055</data>
+			<data key="type">vide</data>
+			<data key="altitude">32.5</data>
+			<data key="latitude">75.2</data>
+			<data key="longitude">46.2</data>
+        </node>
+        <edge id="5" source="1" target="2"></edge>
+        <edge id="6" source="1" target="4"></edge>
+        <edge id="7" source="4" target="3"></edge>
+    </graph>
+</graphml>
+
