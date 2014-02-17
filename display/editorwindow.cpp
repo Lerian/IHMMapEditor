@@ -46,18 +46,16 @@ void EditorWindow::on_newElementButton_clicked()
     QString mapFileName = QFileDialog::getOpenFileName(this, "Choisir une image d'arrière plan", "./", "Images (*.png *.jpg *.bmp)");
     QStringList fileNameParts = mapFileName.split("/");
 
-    ui->elementsComboBox->addItem(fileNameParts.back());
-    ui->elementsComboBox->setCurrentIndex(ui->elementsComboBox->count()-1);
-
     MapGraphicsView* elementView = new MapGraphicsView();
     QPixmap pixmap(mapFileName);
-    QBrush brush(pixmap);
-    QPalette palette;
-    palette.setBrush(elementView->backgroundRole(),brush);
-    elementView->setPalette(palette);
+    QGraphicsPixmapItem* background = new QGraphicsPixmapItem(pixmap);
 
     QGraphicsScene* elementScene = new QGraphicsScene(0,0,pixmap.width(),pixmap.height());
     elementView->setScene(elementScene);
+    elementScene->addItem(background);
 
     ui->mapAreaStack->addWidget(elementView);
+
+    ui->elementsComboBox->addItem(fileNameParts.back());
+    ui->elementsComboBox->setCurrentIndex(ui->elementsComboBox->count()-1);
 }

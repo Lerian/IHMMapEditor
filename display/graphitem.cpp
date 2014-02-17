@@ -68,6 +68,7 @@ void GraphItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
     QMimeData *mimeData = new QMimeData;
     mimeData->setData("application/IHMMapEditor", itemData);
+    mimeData->setText(imageFile());
 
     QImage image(imageFile());
     QDrag *drag = new QDrag(event->widget());
