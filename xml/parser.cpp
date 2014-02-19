@@ -4,13 +4,11 @@
 Parser::Parser(QObject *parent) :
     QObject(parent)
 {
-    // insertion en début de document de <?xml version="1.0" ?>
-    QDomNode noeud = doc.createProcessingInstruction("xml","version=\"1.0\" encoding=\"UTF-8\"");
-    doc.insertBefore(noeud,doc.firstChild());
 
-    graphml = doc.createElement("graphml");
-    doc.appendChild(graphml);
-    graphml.setAttribute("xmlns","http://graphml.graphdrawing.org/xmlns");
+
+   // graphml = doc.createElement("graphml");
+   // doc.appendChild(graphml);
+   // graphml.setAttribute("xmlns","http://graphml.graphdrawing.org/xmlns");
 
     file.setFileName("test.xml");
 
@@ -75,12 +73,99 @@ void Parser::add_edge(QString id_edge, QString source_edge, QString target_edge)
     edge.setAttribute("target",target_edge);
 }
 
-Parser::~Parser(){
+void Parser::write_xml()
+{
+    // insertion en début de document de <?xml version="1.0" ?>
+    QDomNode noeud = doc.createProcessingInstruction("xml","version=\"1.0\" encoding=\"UTF-8\"");
+    doc.insertBefore(noeud,doc.firstChild());
 
     // sauvegarde dans le flux (deux espaces de décalage dans l'arborescence)
     doc.save(out,2);
+}
 
-    std::cout<<"sauvegarde"<<std::endl;
+void Parser::read_xml()
+{
+    QFile fichier("test.xml");
+    if (!fichier.open(QIODevice::ReadOnly))
+    {
+        return;
+    }
+    if (!doc.setContent(&fichier))
+    {
+        fichier.close(); // établit le document XML à partir des données du fichier (hiérarchie, etc.)
+        return;
+    }
+
+    int i=0, j=0;
+    QString affichage;
+    QDomNodeList tabSousNoeud;
+    QDomNodeList tabSousSousNoeud;
+    QDomNode sousNoeud;
+    QDomNode sousSousNoeud;
+    QDomElement element;
+    QDomElement racine = doc.documentElement(); // renvoie la balise racine
+    QDomNode noeud = racine.firstChild(); // renvoie la première balise
+    while(!noeud.isNull())
+    {
+        // convertit le nœud en élément pour utiliser les méthodes tagName() et attribute()
+        element = noeud.toElement();
+        // vérifie la présence de la balise « key »
+        if (element.tagName() == "key")
+            {
+                std::cout<< "Balise key =====>";
+                affichage = element.attribute("for"); // récupère l'attribut for
+                affichage = affichage + " " + element.attribute("attr.type"); // récupère l'attribut attr.type
+                affichage = affichage + " " + element.attribute("attr.name"); // récupère l'attribut attr.type
+                affichage = affichage + " " + element.attribute("id"); // récupère l'attribut attr.type
+                std::cout<< affichage.toStdString() <<std::endl;
+            }
+        // vérifie la présence de la balise « graph »
+        if (element.tagName() == "graph")
+        {
+            std::cout<< "Balise graph =====>";
+            affichage = element.attribute("id");
+            affichage = affichage + " " + element.attribute("edgedefault");
+            std::cout<< affichage.toStdString() <<std::endl;
+            tabSousNoeud = element.childNodes(); // crée un tableau des enfants de « graph »
+            for(i=0;i<tabSousNoeud.length();i++)
+            {
+                sousNoeud = tabSousNoeud.item(i);
+                element=sousNoeud.toElement();
+                if(element.tagName() == "node")
+                {
+                    std::cout<< "=====Balise node =====>";
+                    affichage = element.attribute("id");
+                    std::cout<< affichage.toStdString() <<std::endl;
+                    tabSousSousNoeud = element.childNodes(); // crée un tableau des enfants de « node »
+                    for(j=0;j<tabSousSousNoeud.length();j++)
+                    {
+                        std::cout<< "==========Balise data =====>";
+                        sousSousNoeud = tabSousSousNoeud.item(j);
+                        affichage = sousSousNoeud.toElement().attribute("key") + " " + sousSousNoeud.firstChild().toText().data();
+                        std::cout<< affichage.toStdString() <<std::endl;
+                    }
+                }
+                else if (element.tagName() == "edge")
+                {
+                    std::cout<< "=====Balise edge =====>";
+                    affichage = element.attribute("target");
+                    affichage = affichage + " " + element.attribute("id");
+                    affichage = affichage + " " + element.attribute("source");
+                }
+
+                    // pour chaque enfant, on extrait la donnée et on concatène
+
+                   // n = tab.item(i);
+                   // affichage = affichage + " " + n.firstChild().toText().data();
+             }
+                std::cout<< affichage.toStdString() <<std::endl;
+        }
+        noeud = noeud.nextSibling(); // passe à la "element" suivante
+    }
+}
+
+
+Parser::~Parser(){
 
     file.close();
 }
