@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QDomDocument>
 #include <QTextStream>
+#include <QMessageBox>
 
 class Parser : public QObject
 {
@@ -19,6 +20,8 @@ public slots:
     void add_node(QString id_node);
     void add_data(QString key_data, QString text_data);
     void add_edge(QString id_edge, QString source_edge, QString target_edge);
+    void write_xml();
+    void read_xml();
 
 private:
     QFile file;

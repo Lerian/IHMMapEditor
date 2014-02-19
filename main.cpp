@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "xml/parser.h"
 #include <QApplication>
-#include <iostream>
 
 int main(int argc, char *argv[])
 {
@@ -10,7 +9,7 @@ int main(int argc, char *argv[])
     w.show();
 
     Parser p;
-    //ajout des key
+/*    //ajout des key
     p.add_key("name", "node", "name", "string");
     p.add_key("ref", "node", "ref", "string");
     p.add_key("type", "node", "type", "string");
@@ -40,6 +39,11 @@ int main(int argc, char *argv[])
     //Insertion de edge
     p.add_edge("5", "1", "2");
 
+    //on écrit
+    p.write_xml();
+*/
+
+    p.read_xml();
 
     p.~Parser();
     
