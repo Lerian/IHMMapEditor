@@ -44,8 +44,6 @@ int main(int argc, char *argv[])
 */
 
     p.read_xml();
-
-    p.~Parser();
     
     return a.exec();
 }
