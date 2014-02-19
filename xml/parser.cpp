@@ -6,9 +6,9 @@ Parser::Parser(QObject *parent) :
 {
 
 
-   // graphml = doc.createElement("graphml");
-   // doc.appendChild(graphml);
-   // graphml.setAttribute("xmlns","http://graphml.graphdrawing.org/xmlns");
+    graphml = doc.createElement("graphml");
+    doc.appendChild(graphml);
+    graphml.setAttribute("xmlns","http://graphml.graphdrawing.org/xmlns");
 
     file.setFileName("test.xml");
 
