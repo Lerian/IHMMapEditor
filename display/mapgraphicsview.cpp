@@ -82,28 +82,33 @@ void MapGraphicsView::dropEvent(QDropEvent *event)
 void MapGraphicsView::mousePressEvent(QMouseEvent *event)
 {
     GraphItem *child = dynamic_cast<GraphItem*>(scene()->itemAt(mapToScene(event->pos())));
-    if (!child){
-        return;}
+    if (!child) {
+        return;
+    }
 
-    QPoint hotSpot = mapToScene(event->pos() - child->pos().toPoint()).toPoint();
+    if(event->button() == Qt::RightButton) {
+        child->displayInfo();
+    } else {
+        QPoint hotSpot = mapToScene(event->pos() - child->pos().toPoint()).toPoint();
 
-    QByteArray itemData;
-    QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    dataStream << QPoint(hotSpot);
+        QByteArray itemData;
+        QDataStream dataStream(&itemData, QIODevice::WriteOnly);
+        dataStream << QPoint(hotSpot);
 
-    QMimeData *mimeData = new QMimeData;
-    mimeData->setData("application/IHMMapEditor", itemData);
-    mimeData->setText(child->imageFile());
+        QMimeData *mimeData = new QMimeData;
+        mimeData->setData("application/IHMMapEditor", itemData);
+        mimeData->setText(child->imageFile());
 
-    QDrag *drag = new QDrag(this);
-    drag->setMimeData(mimeData);
-    drag->setPixmap(QPixmap(child->imageFile()).scaled(50, 50));
-    drag->setHotSpot(hotSpot);
+        QDrag *drag = new QDrag(this);
+        drag->setMimeData(mimeData);
+        drag->setPixmap(QPixmap(child->imageFile()).scaled(50, 50));
+        drag->setHotSpot(hotSpot);
 
-    child->hide();
+        child->hide();
 
-    if (drag->exec(Qt::MoveAction | Qt::CopyAction, Qt::CopyAction) == Qt::MoveAction)
-        ;//child->close();
-    else
-        child->show();
+        if (drag->exec(Qt::MoveAction | Qt::CopyAction, Qt::CopyAction) == Qt::MoveAction)
+            ;//child->close();
+        else
+            child->show();
+    }
 }

@@ -8,6 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // Masquage des menus
+    ui->menuBar->hide();
+
     // Masquage de la fenetre d'édition
     ui->editorWindow->hide();
     adjustSize();
@@ -29,4 +32,7 @@ void MainWindow::displayEditor() {
     ui->homeWindow->hide();
     ui->editorWindow->show();
     showMaximized();
+
+    // Affichage des menus
+    ui->menuBar->show();
 }

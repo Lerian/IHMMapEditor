@@ -5,6 +5,9 @@
 #include <QApplication>
 #include <QDrag>
 #include <QMimeData>
+#include <QWidget>
+#include <QGridLayout>
+#include <QPushButton>
 
 GraphItem::GraphItem(QString imageName, QGraphicsItem *parent) :
     QGraphicsObject(parent)
@@ -34,6 +37,18 @@ void GraphItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 QString GraphItem::imageFile() const
 {
     return imageFileName;
+}
+
+void GraphItem::displayInfo() {
+    QWidget* popup = new QWidget();
+    popup->move(this->pos().x(),this->pos().y());
+    QGridLayout* popupLayout = new QGridLayout(popup);
+    QPushButton* destroyButton = new QPushButton("Supprimer l'objet");
+    popupLayout->addWidget(destroyButton);
+    popup->show();
+
+    connect(destroyButton,SIGNAL(clicked()),this,SLOT(deleteLater()));
+    connect(destroyButton,SIGNAL(clicked()),popup,SLOT(close()));
 }
 
 void GraphItem::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
