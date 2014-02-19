@@ -40,16 +40,23 @@ void MapGraphicsView::dropEvent(QDropEvent *event)
 {
     if (event->mimeData()->hasFormat("application/IHMMapEditor")) {
         GraphItem* doorItem = new GraphItem(event->mimeData()->text());
-        doorItem->setPos(event->pos());
+
+        const QMimeData *mime = event->mimeData();
+        QByteArray itemData = mime->data("application/IHMMapEditor");
+        QDataStream dataStream(&itemData, QIODevice::ReadOnly);
+
+        QPoint offset;
+        dataStream >> offset;
+
+        doorItem->setPos(mapToScene(event->pos()+offset));
         this->scene()->addItem(doorItem);
 
         /*const QMimeData *mime = event->mimeData();
         QByteArray itemData = mime->data("application/IHMMapEditor");
         QDataStream dataStream(&itemData, QIODevice::ReadOnly);
 
-        QString text;
         QPoint offset;
-        dataStream >> text >> offset;
+        dataStream >> offset;
         GraphItem *newItem = NULL;
 
         if (this->childAt(event->pos() - offset) != 0) {
@@ -74,11 +81,11 @@ void MapGraphicsView::dropEvent(QDropEvent *event)
 
 void MapGraphicsView::mousePressEvent(QMouseEvent *event)
 {
-    GraphItem *child = dynamic_cast<GraphItem*>(childAt(event->pos()));
-    if (!child)
-        return;
+    GraphItem *child = dynamic_cast<GraphItem*>(scene()->itemAt(mapToScene(event->pos())));
+    if (!child){
+        return;}
 
-    QPoint hotSpot = event->pos() - child->pos().toPoint();
+    QPoint hotSpot = mapToScene(event->pos() - child->pos().toPoint()).toPoint();
 
     QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
@@ -90,7 +97,7 @@ void MapGraphicsView::mousePressEvent(QMouseEvent *event)
 
     QDrag *drag = new QDrag(this);
     drag->setMimeData(mimeData);
-    drag->setPixmap(QPixmap(child->imageFile()));
+    drag->setPixmap(QPixmap(child->imageFile()).scaled(50, 50));
     drag->setHotSpot(hotSpot);
 
     child->hide();

@@ -11,24 +11,35 @@ EditorWindow::EditorWindow(QWidget *parent) :
     ui->setupUi(this);
 
     QGraphicsScene* presentationScene = new QGraphicsScene(this);
+
     GraphItem* doorItem = new GraphItem(":/resource/porte.png");
     doorItem->setPos(0,0);
     presentationScene->addItem(doorItem);
+    QGraphicsTextItem* txtPorte = presentationScene->addText("Porte");
+    txtPorte->setPos(60,0);
+
     GraphItem* elevatorItem = new GraphItem(":/resource/ascenseur.png");
     elevatorItem->setPos(0,60);
     presentationScene->addItem(elevatorItem);
+    QGraphicsTextItem* txtElevator = presentationScene->addText("Ascenseur");
+    txtElevator->setPos(60,60);
+
     GraphItem* stairsItem = new GraphItem(":/resource/escalier.png");
     stairsItem->setPos(0,120);
     presentationScene->addItem(stairsItem);
+
     GraphItem* exitItem = new GraphItem(":/resource/issueSecours.png");
     exitItem->setPos(0,180);
     presentationScene->addItem(exitItem);
+
     GraphItem* qrcodeItem = new GraphItem(":/resource/qrcode.png");
     qrcodeItem->setPos(0,240);
     presentationScene->addItem(qrcodeItem);
+
     GraphItem* wcItem = new GraphItem(":/resource/wc.png");
     wcItem->setPos(0,300);
     presentationScene->addItem(wcItem);
+
     GraphItem* wcHItem = new GraphItem(":/resource/wcH.png");
     wcHItem->setPos(0,360);
     presentationScene->addItem(wcHItem);

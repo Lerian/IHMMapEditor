@@ -7,6 +7,7 @@
 #include <QDropEvent>
 #include <QMouseEvent>
 #include "graphitem.h"
+#include <iostream>
 
 class MapGraphicsView : public QGraphicsView
 {
