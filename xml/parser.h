@@ -19,14 +19,15 @@ private:
     QTextStream out;
     QDomElement graphml;
     QDomElement graph;
+    QDomElement node;
 
 signals:
     
 public slots:
     void add_key(QString id_key,QString for_key,QString name_key,QString type_key);
     void add_graph(QString id_graph);
-    void add_node(QString id_node, QString name_node,QString ref_node,QString type_node,float alt_node,float lat_node,float long_node);
-    
+    void add_node(QString id_node);
+    void add_data(QString key_data, QString text_data);
 };
 
 #endif // PARSER_H

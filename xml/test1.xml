@@ -6,9 +6,9 @@
     <key id="name" for="node" attr.name="name" attr.type="string"/>
     <key id="ref" for="node" attr.name="ref" attr.type="string"/>
     <key id="type" for="node" attr.name="type" attr.type="string"/> <!-- Type : porte, wc, wcHand, qrCode, escalier, ascenseur, sortieSecours, vide -->
-    <key id="altitude" for="node" attr.name="altitude" attr.type="float"/>
-    <key id="latitude" for="node" attr.name="latitude" attr.type="float"/>
-    <key id="longitude" for="node" attr.name="longitude" attr.type="float"/>
+    <key id="altitude" for="node" attr.name="altitude" attr.type="string"/>
+    <key id="latitude" for="node" attr.name="latitude" attr.type="string"/>
+    <key id="longitude" for="node" attr.name="longitude" attr.type="string"/>
 
 	<!-- Construction -->
     <graph id="Bat15" edgedefault="directed">
@@ -49,4 +49,3 @@
         <edge id="7" source="4" target="3"></edge>
     </graph>
 </graphml>
-

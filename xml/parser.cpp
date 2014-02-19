@@ -37,21 +37,25 @@ void Parser::add_graph(QString id_graph)
 }
 
 
-void Parser::add_node(QString id_node, QString name_node,QString ref_node,QString type_node,float alt_node,float lat_node,float long_node)
+void Parser::add_node(QString id_node)
 {
     // création de la balise "node"
     QDomElement node = doc.createElement("node");
     graph.appendChild(node);
-    graph.setAttribute("id",id_node);
-    // création des balises "data"
-    QDomElement data = doc.createElement("data");
-    node.appendChild(data);
-    graph.setAttribute("key","name");
-    QDomText n = doc.createTextNode(name_node);
-    data.appendChild(n);
-
+    node.setAttribute("id",id_node);
 }
 
+void Parser::add_data(QString key_data, QString text_data)
+{
+	// création de la balise "data"
+    QDomElement data = doc.createElement("data");
+    node.appendChild(data);
+	if(key_data == "name" || key_data == "ref" || key_data == "type" || key_data == "altitude" || key_data == "latitude" || key_data == "longitude"){
+		data.setAttribute("key",key_data);
+		QDomText dataText = doc.createTextNode(text_data); // création de la donnée dataText
+		data.appendChild(dataText);
+	}
+}
 
 Parser::~Parser(){
     // insertion en début de document de <?xml version="1.0" ?>
