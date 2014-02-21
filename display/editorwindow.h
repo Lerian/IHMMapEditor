@@ -24,6 +24,8 @@ private slots:
 
     void on_zoomIdeal_clicked();
 
+    void saveRequested();
+
 private:
     Ui::EditorWindow *ui;
 };

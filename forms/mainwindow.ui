@@ -44,20 +44,6 @@
    </widget>
    <addaction name="menuFichier"/>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <property name="movable">
-    <bool>true</bool>
-   </property>
-   <property name="floatable">
-    <bool>true</bool>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNouveau">
    <property name="text">
@@ -103,6 +89,9 @@
    <extends>QWidget</extends>
    <header>editorwindow.h</header>
    <container>1</container>
+   <slots>
+    <slot>saveRequested()</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -136,6 +125,38 @@
     <hint type="destinationlabel">
      <x>323</x>
      <y>283</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionQuitter</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>323</x>
+     <y>283</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSauvegarder</sender>
+   <signal>triggered()</signal>
+   <receiver>editorWindow</receiver>
+   <slot>saveRequested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>482</x>
+     <y>284</y>
     </hint>
    </hints>
   </connection>

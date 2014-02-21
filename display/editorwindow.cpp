@@ -121,3 +121,8 @@ void EditorWindow::on_zoomIdeal_clicked()
 
     //currentView->fitInView(currentView->scene());
 }
+
+void EditorWindow::saveRequested()
+{
+
+}
