@@ -9,9 +9,11 @@ QT       += core gui xml
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 DEPENDPATH += forms\
-            display
+            display\
+            core
 INCLUDEPATH += forms\
-            display
+            display\
+            core
 
 TARGET = IHMMapEditor
 TEMPLATE = app
@@ -23,14 +25,20 @@ SOURCES += main.cpp\
     display/editorwindow.cpp \
     display/graphitem.cpp \
     display/mapgraphicsview.cpp \
-    xml/parser.cpp
+    xml/parser.cpp \
+    core/floor.cpp \
+    core/node.cpp \
+    core/map.cpp
 
 HEADERS  += display/mainwindow.h \
     display/homewindow.h \
     display/editorwindow.h \
     display/graphitem.h \
     display/mapgraphicsview.h \
-    xml/parser.h
+    xml/parser.h \
+    core/floor.h \
+    core/node.h \
+    core/map.h
 
 FORMS    += forms/mainwindow.ui \
     forms/homewindow.ui \
