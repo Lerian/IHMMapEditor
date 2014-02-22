@@ -4,21 +4,14 @@
 Parser::Parser(QObject *parent) :
     QObject(parent)
 {
-
-
-    graphml = doc.createElement("graphml");
-    doc.appendChild(graphml);
-    graphml.setAttribute("xmlns","http://graphml.graphdrawing.org/xmlns");
-
     setOutStream("test.xml");
 }
 
 void Parser::saveMap(Map map)
 {
     // efface l'ancien contenu du fichier
-    QString fn = file.fileName();
     file.remove();
-    setOutStream(fn);
+    setOutStream("test.xml");
 
     // ajout des clés
     add_key("name", "node", "name", "string");
@@ -50,6 +43,9 @@ void Parser::saveMap(Map map)
 
 void Parser::setOutStream(QString filename)
 {
+    graphml = doc.createElement("graphml");
+    doc.appendChild(graphml);
+    graphml.setAttribute("xmlns","http://graphml.graphdrawing.org/xmlns");
     if(file.isOpen())
         file.close();
 
@@ -97,7 +93,7 @@ void Parser::add_data(QString key_data, QString text_data)
         QDomElement data = doc.createElement("data");
         node.appendChild(data);
         data.setAttribute("key",key_data);
-		QDomText dataText = doc.createTextNode(text_data); // création de la donnée dataText
+        QDomText dataText = doc.createTextNode(text_data); // création de la donnée dataText
 		data.appendChild(dataText);
 	}
 }

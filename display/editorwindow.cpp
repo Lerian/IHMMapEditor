@@ -145,7 +145,6 @@ void EditorWindow::saveRequested()
         MapGraphicsView* currentGraphicView = static_cast<MapGraphicsView*>(ui->mapAreaStack->widget(i));
 
         Floor* currentFloor = currentGraphicView->getFloor();
-        std::cout << "floor" << i << std::endl;
 
         QGraphicsScene* currentScene = currentGraphicView->scene();
         QList<QGraphicsItem*> elements = currentScene->items();
@@ -153,9 +152,9 @@ void EditorWindow::saveRequested()
         for(int j=0; j < elements.count()-1; j++) {
             GraphItem* currentItem = static_cast<GraphItem*>(elements.at(j));
             currentFloor->addNode(*(currentItem->getNode()));
-            std::cout << "   node" << j << currentItem->pos().x() << std::endl;
         }
         map.addFloor(*currentFloor);
+        currentFloor->resetNodes();
     }
 
     p.saveMap(map);
