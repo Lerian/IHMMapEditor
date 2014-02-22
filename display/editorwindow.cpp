@@ -83,7 +83,7 @@ void EditorWindow::on_newElementButton_clicked()
     if(!mapFileName.isEmpty()) {
         QStringList fileNameParts = mapFileName.split("/");
 
-        MapGraphicsView* elementView = new MapGraphicsView();
+        MapGraphicsView* elementView = new MapGraphicsView(mapFileName);
         QPixmap pixmap(mapFileName);
         QGraphicsPixmapItem* background = new QGraphicsPixmapItem(pixmap);
 

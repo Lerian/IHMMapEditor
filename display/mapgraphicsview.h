@@ -8,12 +8,17 @@
 #include <QMouseEvent>
 #include "graphitem.h"
 #include <iostream>
+#include "floor.h"
 
 class MapGraphicsView : public QGraphicsView
 {
     Q_OBJECT
+
+    Floor* floor;
+
 public:
     explicit MapGraphicsView(QObject *parent = 0);
+    explicit MapGraphicsView(QString name, QObject *parent = 0);
     
 protected:
     void dragEnterEvent(QDragEnterEvent *event);

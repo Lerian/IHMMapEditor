@@ -4,9 +4,18 @@ MapGraphicsView::MapGraphicsView(QObject *parent) :
     QGraphicsView(dynamic_cast<QWidget*>(parent))
 {
     setAcceptDrops(true);
+
+    floor = new Floor();
 }
 
+MapGraphicsView::MapGraphicsView(QString name, QObject *parent) :
+    QGraphicsView(dynamic_cast<QWidget*>(parent))
+{
+    setAcceptDrops(true);
 
+    floor = new Floor();
+    floor->setName(name);
+}
 
 void MapGraphicsView::dragEnterEvent(QDragEnterEvent *event)
 {
