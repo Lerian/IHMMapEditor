@@ -14,6 +14,7 @@ EditorWindow::EditorWindow(QWidget *parent) :
 
     GraphItem* doorItem = new GraphItem(":/resource/porte.png");
     doorItem->setPos(0,20);
+    doorItem->setType("porte");
     presentationScene->addItem(doorItem);
     QGraphicsTextItem* txtPorte = presentationScene->addText("Porte");
     txtPorte->setPos(60,0);
@@ -21,6 +22,7 @@ EditorWindow::EditorWindow(QWidget *parent) :
 
     GraphItem* elevatorItem = new GraphItem(":/resource/ascenseur.png");
     elevatorItem->setPos(0,80);
+    elevatorItem->setType("ascenseur");
     presentationScene->addItem(elevatorItem);
     QGraphicsTextItem* txtElevator = presentationScene->addText("Ascenseur");
     txtElevator->setPos(60,60);
@@ -28,6 +30,7 @@ EditorWindow::EditorWindow(QWidget *parent) :
 
     GraphItem* stairsItem = new GraphItem(":/resource/escalier.png");
     stairsItem->setPos(0,140);
+    stairsItem->setType("escalier");
     presentationScene->addItem(stairsItem);
     QGraphicsTextItem* txtStairs = presentationScene->addText("Escalier");
     txtStairs->setPos(60,120);
@@ -35,6 +38,7 @@ EditorWindow::EditorWindow(QWidget *parent) :
 
     GraphItem* exitItem = new GraphItem(":/resource/issueSecours.png");
     exitItem->setPos(0,200);
+    exitItem->setType("sortieDeSecours");
     presentationScene->addItem(exitItem);
     QGraphicsTextItem* txtExit = presentationScene->addText("Issue de secours");
     txtExit->setPos(60,180);
@@ -42,6 +46,7 @@ EditorWindow::EditorWindow(QWidget *parent) :
 
     GraphItem* qrcodeItem = new GraphItem(":/resource/qrcode.png");
     qrcodeItem->setPos(0,260);
+    qrcodeItem->setType("qrcode");
     presentationScene->addItem(qrcodeItem);
     QGraphicsTextItem* txtQRCode = presentationScene->addText("QR Code");
     txtQRCode->setPos(60,240);
@@ -49,6 +54,7 @@ EditorWindow::EditorWindow(QWidget *parent) :
 
     GraphItem* wcItem = new GraphItem(":/resource/wc.png");
     wcItem->setPos(0,320);
+    wcItem->setType("wc");
     presentationScene->addItem(wcItem);
     QGraphicsTextItem* txtWC = presentationScene->addText("WC");
     txtWC->setPos(60,300);
@@ -56,6 +62,7 @@ EditorWindow::EditorWindow(QWidget *parent) :
 
     GraphItem* wcHItem = new GraphItem(":/resource/wcH.png");
     wcHItem->setPos(0,380);
+    wcHItem->setType("wcHandicapes");
     presentationScene->addItem(wcHItem);
     QGraphicsTextItem* txtWCH = presentationScene->addText("WC pour handicapés");
     txtWCH->setPos(60,360);
@@ -91,6 +98,10 @@ void EditorWindow::on_newElementButton_clicked()
 
         ui->elementsComboBox->addItem(fileNameParts.back());
         ui->elementsComboBox->setCurrentIndex(ui->elementsComboBox->count()-1);
+
+        ui->zoomIdeal->setEnabled(true);
+        ui->zoomInButton->setEnabled(true);
+        ui->zoomOutButton->setEnabled(true);
     }
 }
 

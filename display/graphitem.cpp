@@ -8,11 +8,18 @@
 #include <QWidget>
 #include <QGridLayout>
 #include <QPushButton>
+#include <QLabel>
+#include <QLineEdit>
+#include <iostream>
 
 GraphItem::GraphItem(QString imageName, QGraphicsItem *parent) :
     QGraphicsObject(parent)
 {
     imageFileName = imageName;
+    mapNode = new Node();
+    mapNode->setLatitude(-1);
+    mapNode->setLongitude(-1);
+    mapNode->setAltitude(-1);
 
     setCursor(Qt::OpenHandCursor);
     setAcceptedMouseButtons(Qt::LeftButton);
@@ -44,11 +51,82 @@ void GraphItem::displayInfo() {
     popup->move(this->pos().x(),this->pos().y());
     QGridLayout* popupLayout = new QGridLayout(popup);
     QPushButton* destroyButton = new QPushButton("Supprimer l'objet");
-    popupLayout->addWidget(destroyButton);
+    popupLayout->addWidget(destroyButton,6,0,1,-1);
+
+    // Gestion du node associé
+    QLabel* labelName = new QLabel("Nom:");
+    QLabel* labelRef = new QLabel("Référence:");
+    QLabel* labelType = new QLabel("Type:");
+    QLabel* labelTypeValue = new QLabel(mapNode->getType());
+    QLabel* labelAlt = new QLabel("Altitude:");
+    QLabel* labelLat = new QLabel("Latitude:");
+    QLabel* labelLong = new QLabel("Longitude:");
+
+    QLineEdit* leName = new QLineEdit(mapNode->getName());
+    QLineEdit* leRef = new QLineEdit(mapNode->getReference());
+    QLineEdit* leAlt = new QLineEdit();
+    if(mapNode->getAltitude() >= 0)
+        leAlt->setText(QString::number(mapNode->getAltitude()));
+    QLineEdit* leLat = new QLineEdit();
+    if(mapNode->getLatitude() >= 0)
+        leLat->setText(QString::number(mapNode->getLatitude()));
+    QLineEdit* leLong = new QLineEdit();
+    if(mapNode->getLongitude() >= 0)
+        leLong->setText(QString::number(mapNode->getLongitude()));
+
+    popupLayout->addWidget(labelName,0,0,1,1);
+    popupLayout->addWidget(labelRef,1,0,1,1);
+    popupLayout->addWidget(labelType,2,0,1,1);
+    popupLayout->addWidget(labelTypeValue,2,1,1,1);
+    popupLayout->addWidget(labelAlt,3,0,1,1);
+    popupLayout->addWidget(labelLat,4,0,1,1);
+    popupLayout->addWidget(labelLong,5,0,1,1);
+
+    popupLayout->addWidget(leName,0,1,1,1);
+    popupLayout->addWidget(leRef,1,1,1,1);
+    popupLayout->addWidget(leAlt,3,1,1,1);
+    popupLayout->addWidget(leLat,4,1,1,1);
+    popupLayout->addWidget(leLong,5,1,1,1);
+
     popup->show();
 
     connect(destroyButton,SIGNAL(clicked()),this,SLOT(deleteLater()));
     connect(destroyButton,SIGNAL(clicked()),popup,SLOT(close()));
+    connect(leName,SIGNAL(textChanged(QString)),this,SLOT(setName(QString)));
+    connect(leRef,SIGNAL(textChanged(QString)),this,SLOT(setRef(QString)));
+    connect(leAlt,SIGNAL(textChanged(QString)),this,SLOT(setAlt(QString)));
+    connect(leLat,SIGNAL(textChanged(QString)),this,SLOT(setLat(QString)));
+    connect(leLong,SIGNAL(textChanged(QString)),this,SLOT(setLong(QString)));
+}
+
+void GraphItem::setType(QString t)
+{
+    mapNode->setType(t);
+}
+
+void GraphItem::setName(QString n)
+{
+    mapNode->setName(n);
+}
+
+void GraphItem::setRef(QString r)
+{
+    mapNode->setReference(r);
+}
+
+void GraphItem::setAlt(QString a)
+{
+    mapNode->setAltitude(a.toFloat());
+}
+
+void GraphItem::setLat(QString l)
+{
+    mapNode->setLatitude(l.toFloat());
+}
+
+void GraphItem::setLong(QString l)
+{
+    mapNode->setLongitude(l.toFloat());
 }
 
 void GraphItem::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
@@ -79,7 +157,13 @@ void GraphItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
     QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    dataStream << QPoint(hotSpot);
+    dataStream << QPoint(hotSpot)
+               << mapNode->getName()
+               << mapNode->getReference()
+               << mapNode->getType()
+               << QString::number(mapNode->getAltitude())
+               << QString::number(mapNode->getLatitude())
+               << QString::number(mapNode->getLongitude());
 
     QMimeData *mimeData = new QMimeData;
     mimeData->setData("application/IHMMapEditor", itemData);

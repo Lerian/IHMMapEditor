@@ -21,6 +21,13 @@ public:
     void setAltitude(float a);
     void setLatitude(float l);
     void setLongitude(float l);
+
+    QString getName() {return name;}
+    QString getReference() {return reference;}
+    QString getType() {return type;}
+    float getAltitude() {return altitude;}
+    float getLatitude() {return latitude;}
+    float getLongitude() {return longitude;}
 };
 
 #endif // NODE_H

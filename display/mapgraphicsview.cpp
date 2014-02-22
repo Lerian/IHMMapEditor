@@ -46,7 +46,26 @@ void MapGraphicsView::dropEvent(QDropEvent *event)
         QDataStream dataStream(&itemData, QIODevice::ReadOnly);
 
         QPoint offset;
-        dataStream >> offset;
+        QString nodeName;
+        QString nodeRef;
+        QString nodeType;
+        QString nodeAlt;
+        QString nodeLat;
+        QString nodeLong;
+        dataStream >> offset
+                   >> nodeName
+                   >> nodeRef
+                   >> nodeType
+                   >> nodeAlt
+                   >> nodeLat
+                   >> nodeLong;
+
+        doorItem->setType(nodeType);
+        doorItem->setName(nodeName);
+        doorItem->setRef(nodeRef);
+        doorItem->setAlt(nodeAlt);
+        doorItem->setLat(nodeLat);
+        doorItem->setLong(nodeLong);
 
         doorItem->setPos(mapToScene(event->pos()+offset));
         this->scene()->addItem(doorItem);
@@ -93,7 +112,13 @@ void MapGraphicsView::mousePressEvent(QMouseEvent *event)
 
         QByteArray itemData;
         QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-        dataStream << QPoint(hotSpot);
+        dataStream << QPoint(hotSpot)
+                   << child->getNode()->getName()
+                   << child->getNode()->getReference()
+                   << child->getNode()->getType()
+                   << QString::number(child->getNode()->getAltitude())
+                   << QString::number(child->getNode()->getLatitude())
+                   << QString::number(child->getNode()->getLongitude());
 
         QMimeData *mimeData = new QMimeData;
         mimeData->setData("application/IHMMapEditor", itemData);
