@@ -6,6 +6,7 @@
 #include <QDomDocument>
 #include <QTextStream>
 #include <QMessageBox>
+#include "map.h"
 
 class Parser : public QObject
 {
@@ -13,6 +14,9 @@ class Parser : public QObject
 public:
     explicit Parser(QObject *parent = 0);
     ~Parser();
+
+    void saveMap(Map map);
+    void setOutStream(QString filename);
 
 public slots:
     void add_key(QString id_key,QString for_key,QString name_key,QString type_key);

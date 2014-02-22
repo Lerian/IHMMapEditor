@@ -19,6 +19,8 @@ class MapGraphicsView : public QGraphicsView
 public:
     explicit MapGraphicsView(QObject *parent = 0);
     explicit MapGraphicsView(QString name, QObject *parent = 0);
+
+    Floor* getFloor() {return floor;}
     
 protected:
     void dragEnterEvent(QDragEnterEvent *event);

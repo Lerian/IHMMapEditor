@@ -12,6 +12,8 @@ public:
     Map();
 
     void addFloor(Floor f);
+    int getFloorNumber() {return floors.size();}
+    Floor getFloorAt(int i) {return floors.at(i);}
 };
 
 #endif // MAP_H

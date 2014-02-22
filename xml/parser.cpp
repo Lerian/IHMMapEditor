@@ -10,13 +10,53 @@ Parser::Parser(QObject *parent) :
     doc.appendChild(graphml);
     graphml.setAttribute("xmlns","http://graphml.graphdrawing.org/xmlns");
 
-    file.setFileName("test.xml");
-
-    if (!file.open(QIODevice::ReadWrite))
-        return;
-    out.setDevice(&file);
+    setOutStream("test.xml");
 }
 
+void Parser::saveMap(Map map)
+{
+    // efface l'ancien contenu du fichier
+    QString fn = file.fileName();
+    file.remove();
+    setOutStream(fn);
+
+    // ajout des clés
+    add_key("name", "node", "name", "string");
+    add_key("ref", "node", "ref", "string");
+    add_key("type", "node", "type", "string");
+    add_key("altitude", "node", "altitude", "string");
+    add_key("latitude", "node", "latitude", "string");
+    add_key("longitude", "node", "longitude", "string");
+
+    for(int i=0;i<map.getFloorNumber();i++) {
+        Floor currentFloor = map.getFloorAt(i);
+        add_graph(currentFloor.getName());
+        for(int j=0;j<currentFloor.getNodeNumber();j++) {
+            Node currentNode = currentFloor.getNodeAt(j);
+            add_node(currentNode.getReference());
+            // ajout des attributs du noeud
+            add_data("name",currentNode.getName());
+            add_data("ref",currentNode.getReference());
+            add_data("type",currentNode.getType());
+            add_data("altitude",QString::number(currentNode.getAltitude()));
+            add_data("latitude",QString::number(currentNode.getLatitude()));
+            add_data("longitude",QString::number(currentNode.getLongitude()));
+        }
+    }
+
+    // ajout des instructions de processing xml et sauvegarde
+    write_xml();
+}
+
+void Parser::setOutStream(QString filename)
+{
+    if(file.isOpen())
+        file.close();
+
+    file.setFileName(filename);
+    if(file.open(QIODevice::ReadWrite))
+       out.setDevice(&file);
+}
 
 void Parser::add_key(QString id_key,QString for_key,QString name_key,QString type_key)
 {

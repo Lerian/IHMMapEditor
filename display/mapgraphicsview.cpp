@@ -115,7 +115,7 @@ void MapGraphicsView::mousePressEvent(QMouseEvent *event)
     }
 
     if(event->button() == Qt::RightButton) {
-        child->displayInfo();
+        child->displayInfo(event->pos());
     } else {
         QPoint hotSpot = mapToScene(event->pos()).toPoint() - child->pos().toPoint();
 

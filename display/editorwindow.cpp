@@ -3,6 +3,8 @@
 #include "graphitem.h"
 #include <QFileDialog>
 #include "mapgraphicsview.h"
+#include "parser.h"
+#include "map.h"
 
 EditorWindow::EditorWindow(QWidget *parent) :
     QWidget(parent),
@@ -121,7 +123,7 @@ void EditorWindow::on_zoomOutButton_clicked()
 
 void EditorWindow::on_zoomIdeal_clicked()
 {
-    MapGraphicsView* currentView = static_cast<MapGraphicsView*>(ui->mapAreaStack->currentWidget());
+    //MapGraphicsView* currentView = static_cast<MapGraphicsView*>(ui->mapAreaStack->currentWidget());
 
     /*qreal sceneWidth = currentView->scene()->width();
     qreal sceneHeight = currentView->scene()->height();
@@ -135,5 +137,26 @@ void EditorWindow::on_zoomIdeal_clicked()
 
 void EditorWindow::saveRequested()
 {
+    Parser p;
 
+    Map map;
+
+    for(int i=0;i < ui->mapAreaStack->count();i++) {
+        MapGraphicsView* currentGraphicView = static_cast<MapGraphicsView*>(ui->mapAreaStack->widget(i));
+
+        Floor* currentFloor = currentGraphicView->getFloor();
+        std::cout << "floor" << i << std::endl;
+
+        QGraphicsScene* currentScene = currentGraphicView->scene();
+        QList<QGraphicsItem*> elements = currentScene->items();
+
+        for(int j=0; j < elements.count()-1; j++) {
+            GraphItem* currentItem = static_cast<GraphItem*>(elements.at(j));
+            currentFloor->addNode(*(currentItem->getNode()));
+            std::cout << "   node" << j << currentItem->pos().x() << std::endl;
+        }
+        map.addFloor(*currentFloor);
+    }
+
+    p.saveMap(map);
 }

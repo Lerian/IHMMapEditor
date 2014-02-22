@@ -46,7 +46,7 @@ QString GraphItem::imageFile() const
     return imageFileName;
 }
 
-void GraphItem::displayInfo() {
+void GraphItem::displayInfo(QPoint pos) {
     QWidget* popup = new QWidget();
     popup->move(this->pos().x(),this->pos().y());
     QGridLayout* popupLayout = new QGridLayout(popup);
@@ -88,6 +88,7 @@ void GraphItem::displayInfo() {
     popupLayout->addWidget(leLat,4,1,1,1);
     popupLayout->addWidget(leLong,5,1,1,1);
 
+    popup->move(pos.x()+50,pos.y()+50);
     popup->show();
 
     connect(destroyButton,SIGNAL(clicked()),this,SLOT(deleteLater()));

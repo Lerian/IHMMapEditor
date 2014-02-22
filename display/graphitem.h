@@ -18,7 +18,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     QString imageFile() const;
 
-    void displayInfo();
+    void displayInfo(QPoint pos);
 
     Node* getNode() {return mapNode;}
     QString getType() {return mapNode->getType();}

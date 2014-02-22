@@ -10,10 +10,12 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 DEPENDPATH += forms\
             display\
-            core
+            core \
+            xml
 INCLUDEPATH += forms\
             display\
-            core
+            core\
+            xml
 
 TARGET = IHMMapEditor
 TEMPLATE = app

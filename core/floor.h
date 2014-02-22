@@ -14,6 +14,9 @@ public:
 
     void addNode(Node n);
     void setName(QString n);
+    QString getName() {return name;}
+    int getNodeNumber() {return nodes.size();}
+    Node getNodeAt(int i) {return nodes.at(i);}
 };
 
 #endif // FLOOR_H
