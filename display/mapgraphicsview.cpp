@@ -141,7 +141,7 @@ void MapGraphicsView::mousePressEvent(QMouseEvent *event)
         child->hide();
 
         if (drag->exec(Qt::MoveAction | Qt::CopyAction, Qt::CopyAction) == Qt::MoveAction)
-            ;//child->close();
+            child->deleteLater();
         else
             child->show();
     }
