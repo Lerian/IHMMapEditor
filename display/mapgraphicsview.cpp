@@ -76,7 +76,7 @@ void MapGraphicsView::dropEvent(QDropEvent *event)
         doorItem->setLat(nodeLat);
         doorItem->setLong(nodeLong);
 
-        doorItem->setPos(mapToScene(event->pos()+offset));
+        doorItem->setPos(mapToScene(event->pos()-offset));
         this->scene()->addItem(doorItem);
 
         /*const QMimeData *mime = event->mimeData();
@@ -117,7 +117,7 @@ void MapGraphicsView::mousePressEvent(QMouseEvent *event)
     if(event->button() == Qt::RightButton) {
         child->displayInfo();
     } else {
-        QPoint hotSpot = mapToScene(event->pos() - child->pos().toPoint()).toPoint();
+        QPoint hotSpot = mapToScene(event->pos()).toPoint() - child->pos().toPoint();
 
         QByteArray itemData;
         QDataStream dataStream(&itemData, QIODevice::WriteOnly);
@@ -136,8 +136,8 @@ void MapGraphicsView::mousePressEvent(QMouseEvent *event)
         QDrag *drag = new QDrag(this);
         drag->setMimeData(mimeData);
         drag->setPixmap(QPixmap(child->imageFile()).scaled(50, 50));
-        drag->setHotSpot(hotSpot);
-
+        drag->setHotSpot(QPoint(drag->pixmap().width()/2 + hotSpot.x(),
+                                drag->pixmap().height()/2 + hotSpot.y()));
         child->hide();
 
         if (drag->exec(Qt::MoveAction | Qt::CopyAction, Qt::CopyAction) == Qt::MoveAction)

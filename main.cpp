@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     w.show();
 
     Parser p;
-/*    //ajout des key
+    //ajout des key
     p.add_key("name", "node", "name", "string");
     p.add_key("ref", "node", "ref", "string");
     p.add_key("type", "node", "type", "string");
@@ -44,9 +44,9 @@ int main(int argc, char *argv[])
 
     //on écrit
     p.write_xml();
-*/
 
-    p.read_xml();
+
+    //p.read_xml();
     
     return a.exec();
 }
