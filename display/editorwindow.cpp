@@ -159,9 +159,11 @@ void EditorWindow::saveRequested()
         QList<QGraphicsItem*> elements = currentScene->items();
 
         for(int j=0; j < elements.count()-1; j++) {
-            if(elements.at(j)->isEnabled()) {
+            if(elements.at(j)->isEnabled()) { // un point
                 GraphItem* currentItem = dynamic_cast<GraphItem*>(elements.at(j));
                 currentFloor->addNode(*(currentItem->getNode()));
+            } else { // une ligne entre deux points
+
             }
         }
         map.addFloor(*currentFloor);
