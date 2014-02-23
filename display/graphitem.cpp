@@ -132,19 +132,7 @@ void GraphItem::setLong(QString l)
 
 void GraphItem::on_createPathButton_clicked()
 {
-    emit startCreatePath(mapNode->getReference(),this->pos().toPoint());
-}
-
-void GraphItem::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
-{
-}
-
-void GraphItem::dragLeaveEvent(QGraphicsSceneDragDropEvent *event)
-{
-}
-
-void GraphItem::dropEvent(QGraphicsSceneDragDropEvent *event)
-{
+    emit startCreatePath(this->pos().toPoint());
 }
 
 void GraphItem::mousePressEvent(QGraphicsSceneMouseEvent *event)

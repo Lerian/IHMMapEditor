@@ -24,7 +24,7 @@ public:
     QString getType() {return mapNode->getType();}
 
 signals:
-    void startCreatePath(QString ref, QPoint pos);
+    void startCreatePath(QPoint pos);
 
 public slots:
     void setType(QString t);
@@ -36,9 +36,6 @@ public slots:
     void on_createPathButton_clicked();
 
 protected:
-    void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
-    void dragLeaveEvent(QGraphicsSceneDragDropEvent *event);
-    void dropEvent(QGraphicsSceneDragDropEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);

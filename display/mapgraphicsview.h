@@ -35,7 +35,7 @@ protected:
 signals:
     
 public slots:
-    void createPath(QString ref, QPoint pos);
+    void createPath(QPoint pos);
     
 };
 

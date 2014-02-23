@@ -81,7 +81,7 @@ void MapGraphicsView::dropEvent(QDropEvent *event)
         doorItem->setPos(mapToScene(event->pos()-offset));
         this->scene()->addItem(doorItem);
 
-        connect(doorItem,SIGNAL(startCreatePath(QString,QPoint)),this,SLOT(createPath(QString,QPoint)));
+        connect(doorItem,SIGNAL(startCreatePath(QPoint)),this,SLOT(createPath(QPoint)));
 
         /*const QMimeData *mime = event->mimeData();
         QByteArray itemData = mime->data("application/IHMMapEditor");
@@ -184,7 +184,7 @@ void MapGraphicsView::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
-void MapGraphicsView::createPath(QString ref, QPoint pos)
+void MapGraphicsView::createPath(QPoint pos)
 {
     drawPath = true;
     pathStart = pos;
