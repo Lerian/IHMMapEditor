@@ -207,3 +207,11 @@ void EditorWindow::on_removeElementButton_clicked()
         ui->removeElementButton->setEnabled(false);
     }
 }
+
+void EditorWindow::clearProject()
+{
+    while(ui->mapAreaStack->count() > 0)
+        on_removeElementButton_clicked();
+
+    ui->projectNameField->clear();
+}

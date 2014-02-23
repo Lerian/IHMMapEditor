@@ -93,6 +93,7 @@
    <container>1</container>
    <slots>
     <slot>saveRequested()</slot>
+    <slot>clearProject()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -159,6 +160,22 @@
     <hint type="destinationlabel">
      <x>482</x>
      <y>284</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionNouveau</sender>
+   <signal>triggered()</signal>
+   <receiver>editorWindow</receiver>
+   <slot>clearProject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>482</x>
+     <y>295</y>
     </hint>
    </hints>
   </connection>

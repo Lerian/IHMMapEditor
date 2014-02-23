@@ -28,6 +28,9 @@ private slots:
 
     void on_removeElementButton_clicked();
 
+public slots:
+    void clearProject();
+
 private:
     Ui::EditorWindow *ui;
 };
