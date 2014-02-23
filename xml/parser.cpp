@@ -11,7 +11,10 @@ void Parser::saveMap(Map map)
 {
     // efface l'ancien contenu du fichier
     file.remove();
-    setOutStream("test.xml");
+    if(projectName.isEmpty())
+        setOutStream("defaultProject.xml");
+    else
+        setOutStream(projectName+".xml");
 
     // ajout des clés
     add_key("name", "node", "name", "string");

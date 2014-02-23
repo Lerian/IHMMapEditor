@@ -52,14 +52,12 @@ void GraphItem::displayInfo(QPoint pos) {
     QGridLayout* popupLayout = new QGridLayout(popup);
     QPushButton* createPathButton = new QPushButton("Créer un chemin");
     QPushButton* destroyButton = new QPushButton("Supprimer l'objet");
-    popupLayout->addWidget(createPathButton,6,0,1,-1);
-    popupLayout->addWidget(destroyButton,7,0,1,-1);
+    popupLayout->addWidget(createPathButton,5,0,1,-1);
+    popupLayout->addWidget(destroyButton,6,0,1,-1);
 
     // Gestion du node associé
     QLabel* labelName = new QLabel("Nom:");
     QLabel* labelRef = new QLabel("Référence:");
-    QLabel* labelType = new QLabel("Type:");
-    QLabel* labelTypeValue = new QLabel(mapNode->getType());
     QLabel* labelAlt = new QLabel("Altitude:");
     QLabel* labelLat = new QLabel("Latitude:");
     QLabel* labelLong = new QLabel("Longitude:");
@@ -78,17 +76,15 @@ void GraphItem::displayInfo(QPoint pos) {
 
     popupLayout->addWidget(labelName,0,0,1,1);
     popupLayout->addWidget(labelRef,1,0,1,1);
-    popupLayout->addWidget(labelType,2,0,1,1);
-    popupLayout->addWidget(labelTypeValue,2,1,1,1);
-    popupLayout->addWidget(labelAlt,3,0,1,1);
-    popupLayout->addWidget(labelLat,4,0,1,1);
-    popupLayout->addWidget(labelLong,5,0,1,1);
+    popupLayout->addWidget(labelAlt,2,0,1,1);
+    popupLayout->addWidget(labelLat,3,0,1,1);
+    popupLayout->addWidget(labelLong,4,0,1,1);
 
     popupLayout->addWidget(leName,0,1,1,1);
     popupLayout->addWidget(leRef,1,1,1,1);
-    popupLayout->addWidget(leAlt,3,1,1,1);
-    popupLayout->addWidget(leLat,4,1,1,1);
-    popupLayout->addWidget(leLong,5,1,1,1);
+    popupLayout->addWidget(leAlt,2,1,1,1);
+    popupLayout->addWidget(leLat,3,1,1,1);
+    popupLayout->addWidget(leLong,4,1,1,1);
 
     popup->move(pos.x()+50,pos.y()+50);
     popup->show();

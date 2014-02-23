@@ -26,6 +26,7 @@ public slots:
     void add_edge(QString id_edge, QString source_edge, QString target_edge);
     void write_xml();
     void read_xml();
+    void setProjectName(QString n) {projectName = n;}
 
 private:
     QFile file;
@@ -34,6 +35,8 @@ private:
     QDomElement graphml;    /*On est obligé de déclarer ici les balises qui peuvent en contenir d'autres*/
     QDomElement graph;
     QDomElement node;
+
+    QString projectName;
 
 };
 
