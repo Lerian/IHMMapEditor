@@ -70,6 +70,14 @@ EditorWindow::EditorWindow(QWidget *parent) :
     txtWCH->setPos(60,360);
     txtWCH->scale(2,2);
 
+    GraphItem* blankItem = new GraphItem(":/resource/blank.png");
+    blankItem->setPos(0,440);
+    blankItem->setType("neutre");
+    presentationScene->addItem(blankItem);
+    QGraphicsTextItem* txtblankItem = presentationScene->addText("Point neutre");
+    txtblankItem->setPos(60,420);
+    txtblankItem->scale(2,2);
+
     ui->itemsPresentationArea->setScene(presentationScene);
     ui->itemsPresentationArea->resize(ui->itemsPresentationArea->scene()->width(),ui->itemsPresentationArea->scene()->height());
 }
@@ -151,8 +159,10 @@ void EditorWindow::saveRequested()
         QList<QGraphicsItem*> elements = currentScene->items();
 
         for(int j=0; j < elements.count()-1; j++) {
-            GraphItem* currentItem = static_cast<GraphItem*>(elements.at(j));
-            currentFloor->addNode(*(currentItem->getNode()));
+            if(elements.at(j)->isEnabled()) {
+                GraphItem* currentItem = dynamic_cast<GraphItem*>(elements.at(j));
+                currentFloor->addNode(*(currentItem->getNode()));
+            }
         }
         map.addFloor(*currentFloor);
         currentFloor->resetNodes();

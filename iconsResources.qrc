@@ -7,5 +7,6 @@
         <file>resource/qrcode.png</file>
         <file>resource/wc.png</file>
         <file>resource/wcH.png</file>
+        <file>resource/blank.png</file>
     </qresource>
 </RCC>

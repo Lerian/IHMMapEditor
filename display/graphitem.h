@@ -23,6 +23,9 @@ public:
     Node* getNode() {return mapNode;}
     QString getType() {return mapNode->getType();}
 
+signals:
+    void startCreatePath(QString ref, QPoint pos);
+
 public slots:
     void setType(QString t);
     void setName(QString n);
@@ -30,6 +33,7 @@ public slots:
     void setAlt(QString a);
     void setLat(QString l);
     void setLong(QString l);
+    void on_createPathButton_clicked();
 
 protected:
     void dragEnterEvent(QGraphicsSceneDragDropEvent *event);

@@ -15,6 +15,9 @@ class MapGraphicsView : public QGraphicsView
     Q_OBJECT
 
     Floor* floor;
+    bool drawPath;
+    QPoint pathStart;
+    QGraphicsLineItem* lastLine;
 
 public:
     explicit MapGraphicsView(QObject *parent = 0);
@@ -27,10 +30,12 @@ protected:
     void dragMoveEvent(QDragMoveEvent *event);
     void dropEvent(QDropEvent *event);
     void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
 
 signals:
     
 public slots:
+    void createPath(QString ref, QPoint pos);
     
 };
 

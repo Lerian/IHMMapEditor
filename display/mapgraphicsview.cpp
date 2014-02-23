@@ -6,6 +6,8 @@ MapGraphicsView::MapGraphicsView(QObject *parent) :
     setAcceptDrops(true);
 
     floor = new Floor();
+    drawPath = false;
+    lastLine = NULL;
 }
 
 MapGraphicsView::MapGraphicsView(QString name, QObject *parent) :
@@ -79,6 +81,8 @@ void MapGraphicsView::dropEvent(QDropEvent *event)
         doorItem->setPos(mapToScene(event->pos()-offset));
         this->scene()->addItem(doorItem);
 
+        connect(doorItem,SIGNAL(startCreatePath(QString,QPoint)),this,SLOT(createPath(QString,QPoint)));
+
         /*const QMimeData *mime = event->mimeData();
         QByteArray itemData = mime->data("application/IHMMapEditor");
         QDataStream dataStream(&itemData, QIODevice::ReadOnly);
@@ -117,32 +121,71 @@ void MapGraphicsView::mousePressEvent(QMouseEvent *event)
     if(event->button() == Qt::RightButton) {
         child->displayInfo(event->pos());
     } else {
-        QPoint hotSpot = mapToScene(event->pos()).toPoint() - child->pos().toPoint();
+        if(!drawPath) {
+            QPoint hotSpot = mapToScene(event->pos()).toPoint() - child->pos().toPoint();
 
-        QByteArray itemData;
-        QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-        dataStream << QPoint(hotSpot)
-                   << child->getNode()->getName()
-                   << child->getNode()->getReference()
-                   << child->getNode()->getType()
-                   << QString::number(child->getNode()->getAltitude())
-                   << QString::number(child->getNode()->getLatitude())
-                   << QString::number(child->getNode()->getLongitude());
+            QByteArray itemData;
+            QDataStream dataStream(&itemData, QIODevice::WriteOnly);
+            dataStream << QPoint(hotSpot)
+                       << child->getNode()->getName()
+                       << child->getNode()->getReference()
+                       << child->getNode()->getType()
+                       << QString::number(child->getNode()->getAltitude())
+                       << QString::number(child->getNode()->getLatitude())
+                       << QString::number(child->getNode()->getLongitude());
 
-        QMimeData *mimeData = new QMimeData;
-        mimeData->setData("application/IHMMapEditor", itemData);
-        mimeData->setText(child->imageFile());
+            QMimeData *mimeData = new QMimeData;
+            mimeData->setData("application/IHMMapEditor", itemData);
+            mimeData->setText(child->imageFile());
 
-        QDrag *drag = new QDrag(this);
-        drag->setMimeData(mimeData);
-        drag->setPixmap(QPixmap(child->imageFile()).scaled(50, 50));
-        drag->setHotSpot(QPoint(drag->pixmap().width()/2 + hotSpot.x(),
-                                drag->pixmap().height()/2 + hotSpot.y()));
-        child->hide();
+            QDrag *drag = new QDrag(this);
+            drag->setMimeData(mimeData);
+            drag->setPixmap(QPixmap(child->imageFile()).scaled(50, 50));
+            drag->setHotSpot(QPoint(drag->pixmap().width()/2 + hotSpot.x(),
+                                    drag->pixmap().height()/2 + hotSpot.y()));
+            child->hide();
 
-        if (drag->exec(Qt::MoveAction | Qt::CopyAction, Qt::CopyAction) == Qt::MoveAction)
-            child->deleteLater();
-        else
-            child->show();
+            if (drag->exec(Qt::MoveAction | Qt::CopyAction, Qt::CopyAction) == Qt::MoveAction)
+                child->deleteLater();
+            else
+                child->show();
+        } else {
+            if(lastLine != NULL) {
+                scene()->removeItem(lastLine);
+            }
+            if(child->pos().toPoint() != pathStart) {
+                QPoint scenePos = mapToScene(event->pos()).toPoint();
+                lastLine = new QGraphicsLineItem(pathStart.x(),pathStart.y(),scenePos.x(),scenePos.y());
+                lastLine->setPen(QPen(Qt::red, 5, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+                lastLine->setEnabled(false);
+                scene()->addItem(lastLine);
+
+                drawPath = false;
+                lastLine = NULL;
+            } else {
+
+                drawPath = false;
+                lastLine = NULL;
+            }
+        }
     }
+}
+
+void MapGraphicsView::mouseMoveEvent(QMouseEvent *event)
+{
+    if(drawPath) {
+        if(lastLine != NULL) {
+            scene()->removeItem(lastLine);
+        }
+        QPoint scenePos = mapToScene(event->pos()).toPoint();
+        lastLine = new QGraphicsLineItem(pathStart.x(),pathStart.y(),scenePos.x(),scenePos.y());
+        lastLine->setEnabled(false);
+        scene()->addItem(lastLine);
+    }
+}
+
+void MapGraphicsView::createPath(QString ref, QPoint pos)
+{
+    drawPath = true;
+    pathStart = pos;
 }

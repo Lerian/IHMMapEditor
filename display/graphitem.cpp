@@ -50,8 +50,10 @@ void GraphItem::displayInfo(QPoint pos) {
     QWidget* popup = new QWidget();
     popup->move(this->pos().x(),this->pos().y());
     QGridLayout* popupLayout = new QGridLayout(popup);
+    QPushButton* createPathButton = new QPushButton("Créer un chemin");
     QPushButton* destroyButton = new QPushButton("Supprimer l'objet");
-    popupLayout->addWidget(destroyButton,6,0,1,-1);
+    popupLayout->addWidget(createPathButton,6,0,1,-1);
+    popupLayout->addWidget(destroyButton,7,0,1,-1);
 
     // Gestion du node associé
     QLabel* labelName = new QLabel("Nom:");
@@ -91,6 +93,8 @@ void GraphItem::displayInfo(QPoint pos) {
     popup->move(pos.x()+50,pos.y()+50);
     popup->show();
 
+    connect(createPathButton,SIGNAL(clicked()),this,SLOT(on_createPathButton_clicked()));
+    connect(createPathButton,SIGNAL(clicked()),popup,SLOT(close()));
     connect(destroyButton,SIGNAL(clicked()),this,SLOT(deleteLater()));
     connect(destroyButton,SIGNAL(clicked()),popup,SLOT(close()));
     connect(leName,SIGNAL(textChanged(QString)),this,SLOT(setName(QString)));
@@ -128,6 +132,11 @@ void GraphItem::setLat(QString l)
 void GraphItem::setLong(QString l)
 {
     mapNode->setLongitude(l.toFloat());
+}
+
+void GraphItem::on_createPathButton_clicked()
+{
+    emit startCreatePath(mapNode->getReference(),this->pos().toPoint());
 }
 
 void GraphItem::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
