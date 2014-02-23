@@ -26,6 +26,8 @@ private slots:
 
     void saveRequested();
 
+    void on_removeElementButton_clicked();
+
 private:
     Ui::EditorWindow *ui;
 };

@@ -104,6 +104,7 @@ void EditorWindow::on_newElementButton_clicked()
         ui->zoomIdeal->setEnabled(true);
         ui->zoomInButton->setEnabled(true);
         ui->zoomOutButton->setEnabled(true);
+        ui->removeElementButton->setEnabled(true);
     }
 }
 
@@ -158,4 +159,16 @@ void EditorWindow::saveRequested()
     }
 
     p.saveMap(map);
+}
+
+void EditorWindow::on_removeElementButton_clicked()
+{
+    ui->mapAreaStack->removeWidget(ui->mapAreaStack->currentWidget());
+    ui->elementsComboBox->removeItem(ui->elementsComboBox->currentIndex());
+    if(ui->elementsComboBox->count() == 0) {
+        ui->zoomIdeal->setEnabled(false);
+        ui->zoomInButton->setEnabled(false);
+        ui->zoomOutButton->setEnabled(false);
+        ui->removeElementButton->setEnabled(false);
+    }
 }
