@@ -22,8 +22,6 @@ private slots:
 
     void on_zoomOutButton_clicked();
 
-    void on_zoomIdeal_clicked();
-
     void saveRequested();
 
     void on_removeElementButton_clicked();
