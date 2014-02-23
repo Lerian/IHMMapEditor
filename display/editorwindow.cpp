@@ -104,9 +104,6 @@ void EditorWindow::on_newElementButton_clicked()
 
         ui->mapAreaStack->addWidget(elementView);
 
-        //elementView->fitInView(background);
-        //elementScene->setSceneRect(background->boundingRect());
-
         ui->elementsComboBox->addItem(fileNameParts.back());
         ui->elementsComboBox->setCurrentIndex(ui->elementsComboBox->count()-1);
 

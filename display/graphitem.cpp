@@ -169,17 +169,7 @@ void GraphItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     drag->setPixmap(QPixmap::fromImage(image).scaled(50, 50));
     drag->setHotSpot(QPoint(drag->pixmap().width()/2 + hotSpot.x(),
                             drag->pixmap().height()/2 + hotSpot.y()));
-    /*
-    QDrag *drag = new QDrag(event->widget());
-    QMimeData *mime = new QMimeData;
-    drag->setMimeData(mime);
 
-    QImage image(imageFile());
-    mime->setImageData(image);
-
-    drag->setPixmap(QPixmap::fromImage(image).scaled(50, 50));
-    drag->setHotSpot(QPoint(15, 30));
-*/
     drag->exec();
     setCursor(Qt::OpenHandCursor);
 }

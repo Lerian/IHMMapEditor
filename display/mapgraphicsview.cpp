@@ -83,23 +83,6 @@ void MapGraphicsView::dropEvent(QDropEvent *event)
 
         connect(doorItem,SIGNAL(startCreatePath(QPoint)),this,SLOT(createPath(QPoint)));
 
-        /*const QMimeData *mime = event->mimeData();
-        QByteArray itemData = mime->data("application/IHMMapEditor");
-        QDataStream dataStream(&itemData, QIODevice::ReadOnly);
-
-        QPoint offset;
-        dataStream >> offset;
-        GraphItem *newItem = NULL;
-
-        if (this->childAt(event->pos() - offset) != 0) {
-            event->ignore();
-        } else {
-            newItem = new GraphItem(event->mimeData()->, this);
-            newItem->move(event->pos() - offset);
-            newItem->show();
-            newItem->setAttribute(Qt::WA_DeleteOnClose);
-        }*/
-
         if (event->source() == this) {
             event->setDropAction(Qt::MoveAction);
             event->accept();
@@ -154,7 +137,7 @@ void MapGraphicsView::mousePressEvent(QMouseEvent *event)
                 scene()->removeItem(lastLine);
             }
             if(child->pos().toPoint() != pathStart) {
-                QPoint scenePos = child->pos()/*mapToScene(event->pos())*/.toPoint();
+                QPoint scenePos = child->pos().toPoint();
                 lastLine = new QGraphicsLineItem(pathStart.x(),pathStart.y(),scenePos.x(),scenePos.y());
                 lastLine->setPen(QPen(Qt::red, 5, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
                 lastLine->setEnabled(false);
