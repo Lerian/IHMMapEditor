@@ -13,3 +13,8 @@ void Floor::setName(QString n)
 {
     name = n;
 }
+
+void Floor::addLink(Link l)
+{
+    links.push_back(l);
+}

@@ -44,7 +44,6 @@
    </widget>
    <addaction name="menuFichier"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNouveau">
    <property name="text">
     <string>Nouveau</string>

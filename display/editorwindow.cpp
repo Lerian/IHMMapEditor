@@ -5,6 +5,7 @@
 #include "mapgraphicsview.h"
 #include "parser.h"
 #include "map.h"
+#include "link.h"
 
 EditorWindow::EditorWindow(QWidget *parent) :
     QWidget(parent),
@@ -148,6 +149,7 @@ void EditorWindow::saveRequested()
 {
     Parser p;
 
+    int idLink = 0;
     Map map;
 
     for(int i=0;i < ui->mapAreaStack->count();i++) {
@@ -157,20 +159,51 @@ void EditorWindow::saveRequested()
 
         QGraphicsScene* currentScene = currentGraphicView->scene();
         QList<QGraphicsItem*> elements = currentScene->items();
-
+        qDebug("récupération elements ok");
         for(int j=0; j < elements.count()-1; j++) {
             if(elements.at(j)->isEnabled()) { // un point
+                qDebug("un point");
                 GraphItem* currentItem = dynamic_cast<GraphItem*>(elements.at(j));
                 currentFloor->addNode(*(currentItem->getNode()));
             } else { // une ligne entre deux points
-
+                qDebug("une ligne");
+                QGraphicsLineItem* currentItem = dynamic_cast<QGraphicsLineItem*>(elements.at(j));
+                // création d'un edge
+                Link* currentLink = new Link();
+                QPointF posPointOrigine = currentItem->line().p1();
+                QPointF posPointDestination = currentItem->line().p2();
+                QString origineReference;
+                QString destinationReference;
+                qDebug("new Link ok");
+                for(int k=0; k < elements.count()-1; k++) {
+                    if(elements.at(k)->isEnabled()) {
+                        qDebug("Un point possible");
+                        GraphItem* item = dynamic_cast<GraphItem*>(elements.at(k));
+                        if(item->pos() == posPointOrigine)
+                            origineReference = item->getNode()->getReference();
+                        else
+                            if(item->pos() == posPointDestination)
+                                destinationReference = item->getNode()->getReference();
+                    }
+                }
+                qDebug("recherche points ok");
+                currentLink->setOrigine(origineReference);
+                currentLink->setDestination(destinationReference);
+                currentLink->setReference("lk"+QString::number(idLink++));
+                currentFloor->addLink(*currentLink);
             }
         }
         map.addFloor(*currentFloor);
+        qDebug("map addFlorr ok");
         currentFloor->resetNodes();
+        currentFloor->resetLinks();
     }
 
+    qDebug("save request end");
+
     p.saveMap(map);
+
+    qDebug("save map fini");
 }
 
 void EditorWindow::on_removeElementButton_clicked()

@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     xml/parser.cpp \
     core/floor.cpp \
     core/node.cpp \
-    core/map.cpp
+    core/map.cpp \
+    core/link.cpp
 
 HEADERS  += display/mainwindow.h \
     display/homewindow.h \
@@ -40,7 +41,8 @@ HEADERS  += display/mainwindow.h \
     xml/parser.h \
     core/floor.h \
     core/node.h \
-    core/map.h
+    core/map.h \
+    core/link.h
 
 FORMS    += forms/mainwindow.ui \
     forms/homewindow.ui \

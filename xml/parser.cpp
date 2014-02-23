@@ -35,6 +35,10 @@ void Parser::saveMap(Map map)
             add_data("latitude",QString::number(currentNode.getLatitude()));
             add_data("longitude",QString::number(currentNode.getLongitude()));
         }
+        for(int j=0;j<currentFloor.getLinkNumber();j++) {
+            Link currentLink = currentFloor.getLinkAt(j);
+            add_edge(currentLink.getReference(),currentLink.getOrigine(),currentLink.getDestination());
+        }
     }
 
     // ajout des instructions de processing xml et sauvegarde
